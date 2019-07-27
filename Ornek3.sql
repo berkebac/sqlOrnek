@@ -1,0 +1,29 @@
+CREATE TABLE Kitaplar
+(
+	[Id] INT NOT NULL IDENTITY PRIMARY KEY,
+	[KitapAdý] NVARCHAR(40) NOT NULL,
+	[Fiyat] DECIMAL(12,2) NOT NULL,
+	[KitapkategoriId] INT NOT NULL,
+)
+CREATE TABLE Kitapkategori
+(
+	[Id] INT NOT NULL IDENTITY PRIMARY KEY,
+	[KategoriAdý] NVARCHAR(40) NOT NULL,
+)
+CREATE TABLE KitapYazarlarý
+(
+	[Id] INT NOT NULL IDENTITY PRIMARY KEY,
+	[KitapiId] INT NOT NULL,
+	[YazarId] INT NOT NULL,
+)
+
+CREATE TABLE Yazarlar
+(
+	[Id] INT NOT NULL IDENTITY PRIMARY KEY,
+	[YazarAdý] NVARCHAR(40) NOT NULL,
+)
+
+ALTER TABLE [Kitaplar] ADD CONSTRAINT FK_Kitaplar_KitapKategori FOREIGN KEY(KitapkategoriId) REFERENCES [Kitaplar]([Id])
+
+ALTER TABLE [KitapYazarlarý] ADD CONSTRAINT FK_KitapYazarlarý_Kitap FOREIGN KEY(KitapiId) REFERENCES [Kitaplar]([Id])
+ALTER TABLE [KitapYazarlarý] ADD CONSTRAINT FK_KitapYazarlarý_Yazar FOREIGN KEY(YazarId) REFERENCES [Yazarlar]([Id])
